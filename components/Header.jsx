@@ -9,7 +9,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 
 const Header = () => {
   return (
-    <header className='fixed top-0 w-full border-b bg-background/80 backdrop-blur-xl z-50 supports-[backdrop-filter]:bg-background/60 pb-1' >
+    <header className='fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60' >
 
       <nav className='container mx-auto flex h-16 items-center justify-between px-4 mt-4 '>
         <Link href='/'>

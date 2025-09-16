@@ -1,9 +1,8 @@
 
-import { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "sonner"
 import "./globals.css";
-import { ThemeProvider } from "@/components/ui/theme-provider";
-import Header from "@/components/ui/Header";
+import { ThemeProvider } from "@/components/theme-provider";
+import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import { dark } from "@clerk/themes";
@@ -29,7 +28,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${inter.className}`}
-        >
+        > <div className="grid-background"></div>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -38,14 +37,15 @@ export default function RootLayout({
           >
             <Header />
             <main className="min-h-screen">{children}</main>
-            <footer className="bg-muted/50 py-12">
+            <Toaster richColors />
+
+            <footer className=" bg-muted/50">
               <div className="container mx-auto px-4 text-center text-gray-200">
-                <p>
-                  Made with 💗 by  Manisha
-                </p>
+                <p> Made with 💗 by  Manisha</p>
               </div>
             </footer>
           </ThemeProvider>
+
         </body>
       </html>
     </ClerkProvider>
