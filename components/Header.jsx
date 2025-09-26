@@ -1,13 +1,14 @@
 
-"use client";
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { ChevronDown, FileText, GraduationCap, LayoutDashboard, StarIcon } from 'lucide-react'
+import { AirVent, ChevronDown, FileText, GraduationCap, LayoutDashboard, StarIcon } from 'lucide-react'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { checkUser } from '@/lib/checkUser';
 
-const Header = () => {
+const Header = async () => {
+  await checkUser();
   return (
     <header className='fixed top-0 w-full border-b bg-background/90 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/80' >
 
@@ -40,6 +41,12 @@ const Header = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link href={'/chatbot'} className='flex items-center gap-2'>
+                    <AirVent className='h-4 w-4' />
+                    <span>AI Chatbot</span>
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href={'/resume'} className='flex items-center gap-2'>
                     <FileText className='h-4 w-4' />
