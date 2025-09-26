@@ -1,7 +1,17 @@
-import React from "react";
+import { onboardUserStatus } from "../../../actions/user"
+import { industries } from "../../../data/industires"
+import OnboardingForm from "./_components/onboarding-form"
 
-const MainLayout = async ({ children }) => {
-  return <div className="container mx-auto mt-24 mb-20">{children}</div>;
-};
+const OnboardingPage = async () => {
+  const { isOnbording } = await onboardUserStatus();
+  if (isOnbording) {
+    redirect('/dashboard')
+  }
+  return (
+    <mai>
+      <OnboardingForm industries={industries} />
+    </mai>
+  )
+}
 
-export default MainLayout;
+export default OnboardingPage
