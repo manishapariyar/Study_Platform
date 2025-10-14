@@ -10,27 +10,30 @@ export async function updateUsers(data) {
   if (!userId) throw new Error("Not authenticated");
   const user = await db.user.findUnique({
     where: { clerkUserId: userId },
-  })
+  });
 
   if (!user) throw new Error("User not found");
   try {
     const result = await db.$transaction(async (tx) => {
       //find if the industry exists
-      let industryInsight = await tx.industryInsights.findUnique({
-        where: { industry: data.industry },
-      })
+      let industryInsight = await tx.industryInsight.findUnique({
+        where: {
+          industry: data.industry,
+        },
+      });
       if (!industryInsight) {
-        industryInsight = await tx.industryInsights.create({
+        //  const insights = await generateAIInsights(data.industry);
+        industryInsight = await db.industryInsight.create({
           data: {
             industry: data.industry,
-            salaryRange: [],
+            salaryRanges: [],
             growthRate: 0,
-            demandLevel: DemandLevel.MEDIUM,
+            demandLevel: "MEDIUM",
             topSkills: [],
-            marketOutLook: "Nuetral",
+            marketOutlook: "NEUTRAL",
             keyTrends: [],
             recommendedSkills: [],
-            nextUpdate: new Date(new Date().now + 7 * 24 * 60 * 60 * 1000), //one week from now
+            nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), //one week from now
           },
         })
       }
@@ -52,7 +55,7 @@ export async function updateUsers(data) {
     }
     );
 
-    return result
+    return { seccess: true, ...result }
   } catch (error) {
     console.error("Transaction failed: ", error);
     throw error;
